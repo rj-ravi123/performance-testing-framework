@@ -113,7 +113,8 @@ services:
         # you need to allow docker to access host drives
         # https://blogs.msdn.microsoft.com/stevelasker/2016/06/14/configuring-docker-for-windows-volumes/
         # currently tests will be fetched from ./jmeter/scenarios/ directory
-        - ./jmeter/scenarios/:/var/lib/jmeter-scenarios/
+        #- ./jmeter/scenarios/:/var/lib/jmeter-scenarios/
+        - ../SystemTestPSR/:/var/lib/jmeter-scenarios/
         - ./wptserver/scripts/:/var/lib/wpt-scripts/
       restart: always
    portainer:

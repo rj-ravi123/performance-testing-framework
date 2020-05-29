@@ -1,2 +1,13 @@
 #!/bin/bash
-bash ./bin/jmeter.sh -n -t ${SCENARIO} -j ${WORKSPACE}/jmeter.log -l ${WORKSPACE}/report.log -e -o ${WORKSPACE}/report/ -JUSERS=${USERS} -JRAMPUP=${RAMPUP} -JDURATION=${DURATION} -JBUILD_NUMBER=${BUILD_NUMBER} -JBUILD_URL=${BUILD_URL} -JSCENARIO_NAME=${SCENARIO_NAME}
+set -e
+freeMem=`awk '/MemFree/ { print int($2/1024) }' /proc/meminfo`
+s=$(($freeMem/10*8))
+x=$(($freeMem/10*8))
+n=$(($freeMem/10*2))
+export JVM_ARGS="-Xmn${n}m -Xms${s}m -Xmx${x}m"
+echo "START Running Jmeter on `date`"
+echo "JVM_ARGS=${JVM_ARGS}"
+echo "jmeter args=$@"
+# Keep entrypoint simple: we must pass the standard JMeter arguments
+jmeter $@
+echo "END Running Jmeter on `date`"
