@@ -11,6 +11,8 @@ JENKINS_URL_CONFIG=${JENKINS_URL_CONFIG:-"http:\\/\\/127.0.0.1:8181\\/"};
 bash -x /usr/local/bin/jenkins.sh &
 
 echo "Waiting Jenkins to start"
+wget "http://$JENKINS_HOST:$JENKINS_PORT/jnlpJars/jenkins-cli.jar"
+cp ./jenkins-cli.jar /var/jenkins_home/war/WEB-INF/
 
 java -jar /var/jenkins_home/war/WEB-INF/jenkins-cli.jar -s $JENKINS_API version
 while [ $? -ne 0 ]; do
