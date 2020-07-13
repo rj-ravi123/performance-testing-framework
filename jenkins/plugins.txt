@@ -12,3 +12,5 @@ compress-buildlog
 groovy-postbuild
 antisamy-markup-formatter
 ssh-slaves
+performance
+perfpublisher
